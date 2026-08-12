@@ -3,8 +3,8 @@ guid: eac1507cb5dbe204ea3197c4b5959ddc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1292465933812593646
-    second: Btn_Shake_0
+      213: -2900184269103006725
+    second: Btn_shake_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Btn_Shake_0
+      name: Btn_shake_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 96
+        width: 66
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21c8ecab41d301ee0800000000000000
-      internalID: -1292465933812593646
+      spriteID: bfb70f8e5c970c7d0800000000000000
+      internalID: -2900184269103006725
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Btn_Shake_0: -1292465933812593646
+      Btn_shake_0: -2900184269103006725
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

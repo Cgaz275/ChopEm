@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c0446410a108240449f971bb5f2c0a99
+guid: c6b09465c81176a4ab645fa836226d09
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7001165533525691834
-    second: PopUp_BG_0
+      213: -4965660074160523247
+    second: Btn_BG_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PopUp_BG_0
+      name: Btn_BG_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 372
-        height: 738
+        width: 522
+        height: 165
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 14, y: 20, z: 15, w: 17}
+      border: {x: 19, y: 20, z: 18, w: 18}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6423e708a0dd6de90800000000000000
-      internalID: -7001165533525691834
+      spriteID: 1187254c87e661bb0800000000000000
+      internalID: -4965660074160523247
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7273f31475f11054d9ab194f4480fd03
+    spriteID: 91ae744fab5b4c14784d2474100cf3ea
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PopUp_BG_0: -7001165533525691834
+      Btn_BG_0: -4965660074160523247
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
