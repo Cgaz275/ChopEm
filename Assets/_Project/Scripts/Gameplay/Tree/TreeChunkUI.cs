@@ -18,9 +18,9 @@ public class TreeChunkUI : MonoBehaviour
     // Lưu trữ thông tin Data hiện tại của khúc gỗ
     public TreeChunkData CurrentData { get; private set; }
 
-    /// <summary>
-    /// Cập nhật hình ảnh và dữ liệu cho khúc gỗ
-    /// </summary>
+  
+    //Cập nhật hình ảnh và dữ liệu cho khúc gỗ
+   
     public void SetData(TreeChunkData data)
     {
         if (data == null) return;
