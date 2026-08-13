@@ -3,6 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TreeGameConfig", menuName = "TimberGame/Game Config")]
 public class TreeGameConfig : ScriptableObject
 {
+    [Header("--- CẤU HÌNH VỊ TRÍ CÂY ---")]
+    [Tooltip("Vị trí Pos Y của khúc gỗ đáy (tính từ ô trắng mẫu)")]
+    public float basePositionY = -300f;
+
+    [Tooltip("Chiều cao Height của 1 khúc gỗ")]
+    public float chunkHeight = 213f;
+
     [Header("--- CẤU HÌNH CÂY ---")]
     [Tooltip("Số khúc gỗ hiển thị trên màn hình cùng lúc")]
     public int visibleChunksCount = 8;
