@@ -1,4 +1,6 @@
-enum ChunkType
+// Các loại khúc gỗ trong game
+
+public enum ChunkType
 {
     Normal,
     BranchLeft,
