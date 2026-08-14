@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        Debug.Log ("Game started");
         CurrentScore = 0;
         CurrentTime = config.maxTime;
 

@@ -4,6 +4,7 @@ public class UIStateController : MonoBehaviour
 {
     [Header("--- SCREENS ---")]
     [SerializeField] private GameObject homeScreen;
+    [SerializeField] private GameObject gameWorld;
     [SerializeField] private GameObject gameplayHUD;
     [SerializeField] private GameObject howToPlayScreen;
 
@@ -28,8 +29,11 @@ public class UIStateController : MonoBehaviour
 
     private void ApplyState(GameState state)
     {
+        bool isGameplayState = state == GameState.Gameplay || state == GameState.Pause || state == GameState.GameOver;
+
         SetActive(homeScreen, state == GameState.Home);
-        SetActive(gameplayHUD, state == GameState.Gameplay || state == GameState.Pause || state == GameState.GameOver);
+        SetActive(gameWorld, isGameplayState);
+        SetActive(gameplayHUD, isGameplayState);
         SetActive(howToPlayScreen, state == GameState.HowToPlay);
         SetActive(pausePopup, state == GameState.Pause);
         SetActive(gameOverPopup, state == GameState.GameOver);
