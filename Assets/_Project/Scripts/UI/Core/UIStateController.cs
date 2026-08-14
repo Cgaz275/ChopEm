@@ -6,6 +6,9 @@ public class UIStateController : MonoBehaviour
     [SerializeField] private GameObject homeScreen;
     [SerializeField] private GameObject gameWorld;
     [SerializeField] private GameObject gameplayHUD;
+
+    [Header("--- GAMEPLAY ---")]
+    [SerializeField] private TreeController treeController;
     [SerializeField] private GameObject howToPlayScreen;
 
     [Header("--- POPUPS ---")]
@@ -37,6 +40,11 @@ public class UIStateController : MonoBehaviour
         SetActive(howToPlayScreen, state == GameState.HowToPlay);
         SetActive(pausePopup, state == GameState.Pause);
         SetActive(gameOverPopup, state == GameState.GameOver);
+
+        if (state == GameState.Gameplay && treeController != null)
+        {
+            treeController.RefreshChopHighlight();
+        }
     }
 
     private static void SetActive(GameObject target, bool isActive)

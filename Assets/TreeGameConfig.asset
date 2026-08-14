@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TreeGameConfig
   m_EditorClassIdentifier: Assembly-CSharp::TreeGameConfig
   basePositionY: -679
-  chunkHeight: 213
-  visibleChunksCount: 8
+  chunkHeight: 281
+  visibleChunksCount: 6
   branchSpawnRate: 60
   maxTime: 10
   timeBonusPerChop: 0.25

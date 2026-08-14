@@ -111,12 +111,17 @@ public class TreeController : MonoBehaviour
         }
     }
 
-    private void UpdateChopHighlight()
+    public void RefreshChopHighlight()
     {
         for (int i = 0; i < spawnedChunks.Count; i++)
         {
             spawnedChunks[i].SetChopHighlight(i == 0);
         }
+    }
+
+    private void UpdateChopHighlight()
+    {
+        RefreshChopHighlight();
     }
 
     private ChunkType GetRandomChunkType()
