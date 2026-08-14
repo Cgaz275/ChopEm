@@ -90,8 +90,8 @@ public class TreeController : MonoBehaviour
     private bool IsHitBranch(ChopSide side, ChunkType type)
     {
         if (type == ChunkType.BranchBoth) return true;
-        if (side == ChopSide.Left && type == ChunkType.BranchLeft) return true;
-        if (side == ChopSide.Right && type == ChunkType.BranchRight) return true;
+        if (side == ChopSide.Left && type == ChunkType.BranchRight) return true;
+        if (side == ChopSide.Right && type == ChunkType.BranchLeft) return true;
         return false;
     }
 
