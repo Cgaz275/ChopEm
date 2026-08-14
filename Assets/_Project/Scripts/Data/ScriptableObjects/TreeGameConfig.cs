@@ -5,7 +5,7 @@ public class TreeGameConfig : ScriptableObject
 {
     [Header("--- CẤU HÌNH VỊ TRÍ CÂY ---")]
     [Tooltip("Vị trí Pos Y của khúc gỗ đáy (tính từ ô trắng mẫu)")]
-    public float basePositionY = -300f;
+    public float basePositionY = -679f;
 
     [Tooltip("Chiều cao Height của 1 khúc gỗ")]
     public float chunkHeight = 213f;

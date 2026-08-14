@@ -51,7 +51,8 @@ public class TreeController : MonoBehaviour
                 rect.anchoredPosition = new Vector2(0f, targetY);
             }
 
-            ChunkType type = (i < 2) ? ChunkType.Normal : GetRandomChunkType();
+            // ChunkType type = (i < 2) ? ChunkType.Normal : GetRandomChunkType();
+             ChunkType type =  GetRandomChunkType();
             newChunk.SetData(new TreeChunkData(type));
 
             spawnedChunks.Add(newChunk);
