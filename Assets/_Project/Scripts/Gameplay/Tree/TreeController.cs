@@ -51,12 +51,14 @@ public class TreeController : MonoBehaviour
                 rect.anchoredPosition = new Vector2(0f, targetY);
             }
 
-            // ChunkType type = (i < 2) ? ChunkType.Normal : GetRandomChunkType();
-             ChunkType type =  GetRandomChunkType();
+            ChunkType type = (i < 2) ? ChunkType.Normal : GetRandomChunkType();
             newChunk.SetData(new TreeChunkData(type));
 
             spawnedChunks.Add(newChunk);
+            newChunk.SetChopHighlight(i == 0);
         }
+
+        UpdateChopHighlight();
     }
 
     public bool Chop(ChopSide side)
@@ -80,6 +82,7 @@ public class TreeController : MonoBehaviour
 
         // Cập nhật lại vị trí các khúc gỗ
         UpdateChunkPositions();
+        UpdateChopHighlight();
 
         return true;
     }
@@ -105,6 +108,14 @@ public class TreeController : MonoBehaviour
                 float targetY = baseY + (i * height);
                 rect.anchoredPosition = new Vector2(0f, targetY);
             }
+        }
+    }
+
+    private void UpdateChopHighlight()
+    {
+        for (int i = 0; i < spawnedChunks.Count; i++)
+        {
+            spawnedChunks[i].SetChopHighlight(i == 0);
         }
     }
 

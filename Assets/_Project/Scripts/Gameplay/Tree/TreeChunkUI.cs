@@ -18,9 +18,32 @@ public class TreeChunkUI : MonoBehaviour
     // Lưu trữ thông tin Data hiện tại của khúc gỗ
     public TreeChunkData CurrentData { get; private set; }
 
-  
+    private RawImage chopHighlight;
+
+    private void Awake()
+    {
+        if (chunkImage == null)
+        {
+            chunkImage = GetComponent<Image>();
+        }
+
+        GameObject highlightObject = new GameObject("ChopHighlight", typeof(RectTransform), typeof(RawImage));
+        highlightObject.transform.SetParent(transform, false);
+        chopHighlight = highlightObject.GetComponent<RawImage>();
+        chopHighlight.texture = Texture2D.whiteTexture;
+        chopHighlight.color = new Color(0.35f, 0.8f, 0.25f, 0.38f);
+        chopHighlight.raycastTarget = false;
+        chopHighlight.enabled = false;
+
+        RectTransform highlightRect = highlightObject.GetComponent<RectTransform>();
+        highlightRect.anchorMin = Vector2.zero;
+        highlightRect.anchorMax = Vector2.one;
+        highlightRect.offsetMin = Vector2.zero;
+        highlightRect.offsetMax = Vector2.zero;
+    }
+
     //Cập nhật hình ảnh và dữ liệu cho khúc gỗ
-   
+
     public void SetData(TreeChunkData data)
     {
         if (data == null) return;
@@ -48,6 +71,7 @@ public class TreeChunkUI : MonoBehaviour
                     chunkImage.sprite = normalSprite;
                     break;
             }
+
         }
 
         // 2. Cập nhật Text hướng dẫn (nếu có)
@@ -59,6 +83,14 @@ public class TreeChunkUI : MonoBehaviour
             {
                 instructionText.text = data.instructionText;
             }
+        }
+    }
+
+    public void SetChopHighlight(bool highlighted)
+    {
+        if (chopHighlight != null)
+        {
+            chopHighlight.enabled = highlighted;
         }
     }
 }
