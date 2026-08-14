@@ -8,24 +8,22 @@ public class TreeController : MonoBehaviour
     [SerializeField] private TreeChunkUI chunkPrefab;    
 
     [Header("--- CONFIG ---")]
-    [Tooltip("Kéo file SO TreeGameConfig vào đây (hoặc để trống để tự lấy từ GameManager)")]
+    [Tooltip("Kéo file SO TreeGameConfig vào đây")]
     [SerializeField] private TreeGameConfig config;
 
     private readonly List<TreeChunkUI> spawnedChunks = new List<TreeChunkUI>();
 
-    // Property lấy Config linh hoạt: Ưu tiên Config kéo tay, nếu không có sẽ tự lấy từ GameManager
-    private TreeGameConfig Config
-    {
-        get
-        {
-            if (config != null) return config;
-            if (GameManager.Instance != null) return GameManager.Instance.Config;
-            return null;
-        }
-    }
+    private TreeGameConfig Config => config;
 
     private void Start()
     {
+        Debug.Assert(config != null, "TreeController requires a TreeGameConfig reference.", this);
+        if (config == null)
+        {
+            enabled = false;
+            return;
+        }
+
         InitTree();
     }
 
@@ -38,9 +36,9 @@ public class TreeController : MonoBehaviour
         spawnedChunks.Clear();
 
         // Đọc cấu hình từ ScriptableObject
-        int visibleCount = Config != null ? Config.visibleChunksCount : 8;
-        float baseY = Config != null ? Config.basePositionY : -300f;
-        float height = Config != null ? Config.chunkHeight : 213f;
+        int visibleCount = Config.visibleChunksCount;
+        float baseY = Config.basePositionY;
+        float height = Config.chunkHeight;
 
         for (int i = 0; i < visibleCount; i++)
         {
@@ -95,8 +93,8 @@ public class TreeController : MonoBehaviour
 
     private void UpdateChunkPositions()
     {
-        float baseY = Config != null ? Config.basePositionY : -300f;
-        float height = Config != null ? Config.chunkHeight : 213f;
+        float baseY = Config.basePositionY;
+        float height = Config.chunkHeight;
 
         for (int i = 0; i < spawnedChunks.Count; i++)
         {
@@ -111,7 +109,7 @@ public class TreeController : MonoBehaviour
 
     private ChunkType GetRandomChunkType()
     {
-        int spawnRate = Config != null ? Config.branchSpawnRate : 60;
+        int spawnRate = Config.branchSpawnRate;
         bool shouldSpawnBranch = Random.Range(0, 100) < spawnRate;
         if (!shouldSpawnBranch) return ChunkType.Normal;
 

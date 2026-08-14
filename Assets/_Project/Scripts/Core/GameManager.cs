@@ -38,6 +38,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        Debug.Assert(config != null, "GameManager requires a TreeGameConfig reference.", this);
+        if (config == null)
+        {
+            enabled = false;
+            return;
+        }
+
         // Load điểm kỷ lục đã lưu
         LoadHighScore();
     }
@@ -81,10 +88,10 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         CurrentScore = 0;
-        CurrentTime = config != null ? config.maxTime : 10f;
+        CurrentTime = config.maxTime;
 
         OnScoreChanged?.Invoke(CurrentScore);
-        OnTimeChanged?.Invoke(CurrentTime, config != null ? config.maxTime : 10f);
+        OnTimeChanged?.Invoke(CurrentTime, config.maxTime);
 
         ChangeState(GameState.Gameplay);
     }
@@ -95,7 +102,7 @@ public class GameManager : MonoBehaviour
     private void HandleTimer()
     {
         CurrentTime -= Time.deltaTime;
-        float maxTime = config != null ? config.maxTime : 10f;
+        float maxTime = config.maxTime;
 
         OnTimeChanged?.Invoke(CurrentTime, maxTime);
 
@@ -113,9 +120,9 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentState != GameState.Gameplay) return;
 
-        int scoreToAdd = config != null ? config.scorePerChop : 1;
-        float timeBonus = config != null ? config.timeBonusPerChop : 0.25f;
-        float maxTime = config != null ? config.maxTime : 10f;
+        int scoreToAdd = config.scorePerChop;
+        float timeBonus = config.timeBonusPerChop;
+        float maxTime = config.maxTime;
 
         // 1. Cộng điểm
         CurrentScore += scoreToAdd;
