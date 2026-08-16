@@ -4,5 +4,6 @@ public enum GameState
         Gameplay,   // Màn đang chơi (GameplayHUD)
         HowToPlay,  // Màn Hướng dẫn (HowToPlayScreen)
         Pause,      // Bảng tạm dừng (Popup_Pause)
-        GameOver    // Bảng thua (Popup_GameOver)
+        GameOver,   // Bảng thua (Popup_GameOver)
+        Settings    // Bảng cài đặt (Popup_Settings)
     }

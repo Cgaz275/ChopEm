@@ -170,6 +170,13 @@ public class GameManager : MonoBehaviour
     public void PauseGame() => ChangeState(GameState.Pause);
     public void ResumeGame() => ChangeState(GameState.Gameplay);
     public void ShowHowToPlay() => ChangeState(GameState.HowToPlay);
+    public void ShowSettings() => ChangeState(GameState.Settings);
+    public void CloseSettings()
+    {
+        Debug.Log($"CloseSettings called. Current state: {CurrentState}");
+        ChangeState(GameState.Home);
+        Debug.Log($"Settings closed. Current state: {CurrentState}");
+    }
     public void ReturnToHome() => ChangeState(GameState.Home);
     public void RestartGame() => StartGame();
 

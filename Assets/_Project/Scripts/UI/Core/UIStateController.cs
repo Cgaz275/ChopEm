@@ -14,6 +14,7 @@ public class UIStateController : MonoBehaviour
     [Header("--- POPUPS ---")]
     [SerializeField] private GameObject pausePopup;
     [SerializeField] private GameObject gameOverPopup;
+    [SerializeField] private GameObject settingsPopup;
 
     private void OnEnable()
     {
@@ -40,6 +41,7 @@ public class UIStateController : MonoBehaviour
         SetActive(howToPlayScreen, state == GameState.HowToPlay);
         SetActive(pausePopup, state == GameState.Pause);
         SetActive(gameOverPopup, state == GameState.GameOver);
+        SetActive(settingsPopup, state == GameState.Settings);
 
         if (state == GameState.Gameplay && treeController != null)
         {
