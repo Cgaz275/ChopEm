@@ -55,6 +55,18 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.Home);
     }
 
+    private void OnDestroy()
+    {
+        if (Instance != this) return;
+
+        Instance = null;
+        OnGameStateChanged = null;
+        OnScoreChanged = null;
+        OnHighScoreChanged = null;
+        OnTimeChanged = null;
+        Time.timeScale = 1f;
+    }
+
     private void Update()
     {
         // Chỉ đếm ngược thời gian khi đang thực sự chơi
@@ -87,7 +99,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        Debug.Log ("Game started");
+        Debug.Log("Game started");
+
+        TreeController treeController = FindFirstObjectByType<TreeController>();
+        if (treeController != null)
+        {
+            treeController.InitTree();
+        }
+
         CurrentScore = 0;
         CurrentTime = config.maxTime;
 
