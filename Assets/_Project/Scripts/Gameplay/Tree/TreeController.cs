@@ -33,6 +33,14 @@ public class TreeController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (treeContainer != null && chopFeedback != null)
+        {
+            chopFeedback.ResetFeedback(treeContainer);
+        }
+    }
+
     public void InitTree()
     {
         if (treeContainer == null || chunkPrefab == null) return;

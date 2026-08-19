@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TreeChopFeedback : MonoBehaviour
 {
+    private readonly List<GameObject> activeFeedbacks = new List<GameObject>();
+
     [SerializeField] private float exitDistance = 180f;
     [SerializeField] private float exitHeight = 140f;
     [SerializeField] private float exitAngle = 18f;
@@ -22,6 +24,8 @@ public class TreeChopFeedback : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+
+        activeFeedbacks.Clear();
     }
 
     public void AnimateChunkPositions(
@@ -60,11 +64,14 @@ public class TreeChopFeedback : MonoBehaviour
     {
         if (chunk == null) return;
 
+        activeFeedbacks.RemoveAll(feedback => feedback == null);
+
         RectTransform source = chunk.GetComponent<RectTransform>();
         if (source == null) return;
 
         GameObject flyingChunk = Instantiate(chunk.gameObject, source.parent);
         flyingChunk.name = "ChoppedChunkFeedback";
+        activeFeedbacks.Add(flyingChunk);
 
         TreeChunkUI flyingChunkView = flyingChunk.GetComponent<TreeChunkUI>();
         if (flyingChunkView != null)
@@ -98,7 +105,7 @@ public class TreeChopFeedback : MonoBehaviour
         LeanTween.moveLocal(flyingChunk, exitPosition, exitDuration)
             .setEaseOutQuad()
             .setIgnoreTimeScale(true)
-            .setOnComplete(() => Destroy(flyingChunk));
+            .setOnComplete(() => DestroyFeedback(flyingChunk));
 
         LeanTween.rotateLocal(flyingChunk, new Vector3(0f, 0f, direction * exitAngle), exitDuration)
             .setEaseOutQuad()
@@ -107,5 +114,14 @@ public class TreeChopFeedback : MonoBehaviour
         LeanTween.alphaCanvas(canvasGroup, 0f, exitDuration)
             .setEaseInQuad()
             .setIgnoreTimeScale(true);
+    }
+
+    private void DestroyFeedback(GameObject feedback)
+    {
+        activeFeedbacks.Remove(feedback);
+        if (feedback != null)
+        {
+            Destroy(feedback);
+        }
     }
 }
