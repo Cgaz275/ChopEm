@@ -4,8 +4,9 @@ using UnityEngine;
 public class TreeController : MonoBehaviour
 {
     [Header("--- REFERENCES ---")]
-    [SerializeField] private RectTransform treeContainer; 
-    [SerializeField] private TreeChunkUI chunkPrefab;    
+    [SerializeField] private RectTransform treeContainer;
+    [SerializeField] private TreeChunkUI chunkPrefab;
+    [SerializeField] private TreeChopFeedback chopFeedback;
 
     [Header("--- CONFIG ---")]
     [Tooltip("Kéo file SO TreeGameConfig vào đây")]
@@ -15,47 +16,81 @@ public class TreeController : MonoBehaviour
 
     private TreeGameConfig Config => config;
 
+    private void Awake()
+    {
+        if (chopFeedback == null)
+        {
+            chopFeedback = gameObject.AddComponent<TreeChopFeedback>();
+        }
+    }
+
     private void Start()
     {
         Debug.Assert(config != null, "TreeController requires a TreeGameConfig reference.", this);
         if (config == null)
         {
             enabled = false;
-            return;
         }
+    }
 
-        InitTree();
+    private void OnDestroy()
+    {
+        if (treeContainer != null && chopFeedback != null)
+        {
+            chopFeedback.ResetFeedback(treeContainer);
+        }
     }
 
     public void InitTree()
     {
-        foreach (var chunk in spawnedChunks)
+        if (treeContainer == null || chunkPrefab == null) return;
+
+        if (chopFeedback != null)
         {
-            if (chunk != null) Destroy(chunk.gameObject);
+            chopFeedback.ResetFeedback(treeContainer);
         }
+
+        List<TreeChunkUI> existingChunks = new List<TreeChunkUI>();
+        foreach (Transform child in treeContainer)
+        {
+            if (child.name == "ChoppedChunkFeedback") continue;
+
+            TreeChunkUI chunk = child.GetComponent<TreeChunkUI>();
+            if (chunk != null)
+            {
+                LeanTween.cancel(child.gameObject);
+                existingChunks.Add(chunk);
+            }
+        }
+
+        int visibleCount = Config.visibleChunksCount;
+        for (int i = visibleCount; i < existingChunks.Count; i++)
+        {
+            Destroy(existingChunks[i].gameObject);
+        }
+
         spawnedChunks.Clear();
 
-        // Đọc cấu hình từ ScriptableObject
-        int visibleCount = Config.visibleChunksCount;
         float baseY = Config.basePositionY;
         float height = Config.chunkHeight;
 
         for (int i = 0; i < visibleCount; i++)
         {
-            TreeChunkUI newChunk = Instantiate(chunkPrefab, treeContainer);
-            
+            TreeChunkUI newChunk = i < existingChunks.Count
+                ? existingChunks[i]
+                : Instantiate(chunkPrefab, treeContainer);
+
             RectTransform rect = newChunk.GetComponent<RectTransform>();
             if (rect != null)
             {
-                float targetY = baseY + (i * height);
-                rect.anchoredPosition = new Vector2(0f, targetY);
+                rect.anchoredPosition = new Vector2(0f, baseY + i * height);
+                rect.localRotation = Quaternion.identity;
+                rect.localScale = Vector3.one;
             }
 
             ChunkType type = (i < 2) ? ChunkType.Normal : GetRandomChunkType();
             newChunk.SetData(new TreeChunkData(type));
-
             spawnedChunks.Add(newChunk);
-            newChunk.SetChopHighlight(i == 0);
         }
 
         UpdateChopHighlight();
@@ -72,6 +107,8 @@ public class TreeController : MonoBehaviour
             return false; // Thua
         }
 
+        chopFeedback.PlayChunk(bottomChunk, side);
+
         // Xoay vòng khúc gỗ đáy lên đỉnh
         spawnedChunks.RemoveAt(0);
 
@@ -80,9 +117,15 @@ public class TreeController : MonoBehaviour
 
         spawnedChunks.Add(bottomChunk);
 
+        ClearChopHighlights();
+
         // Cập nhật lại vị trí các khúc gỗ
-        UpdateChunkPositions();
-        UpdateChopHighlight();
+        chopFeedback.AnimateChunkPositions(
+            spawnedChunks,
+            Config.basePositionY,
+            Config.chunkHeight,
+            RefreshChopHighlight
+        );
 
         return true;
     }
@@ -116,6 +159,14 @@ public class TreeController : MonoBehaviour
         for (int i = 0; i < spawnedChunks.Count; i++)
         {
             spawnedChunks[i].SetChopHighlight(i == 0);
+        }
+    }
+
+    private void ClearChopHighlights()
+    {
+        for (int i = 0; i < spawnedChunks.Count; i++)
+        {
+            spawnedChunks[i].SetChopHighlight(false);
         }
     }
 
