@@ -16,6 +16,6 @@ MonoBehaviour:
   chunkHeight: 281
   visibleChunksCount: 6
   branchSpawnRate: 60
-  maxTime: 10
+  maxTime: 2
   timeBonusPerChop: 0.25
   scorePerChop: 1
