@@ -15,6 +15,7 @@ ChopEm là game chặt cây 2D mobile theo dạng endless game có nhịp độ 
   - Phát âm thanh chặt cây.
 - Khi thời gian về 0 hoặc người chơi chặt sai, game chuyển sang màn hình Game Over.
 - Điểm cao nhất được lưu cục bộ bằng `PlayerPrefs`.
+- Video Demo Gameplay: [Youtube Link](https://youtu.be/C6SAohRTNrs)
 
 ## Hình minh họa
 
