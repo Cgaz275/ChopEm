@@ -67,5 +67,10 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "ChopEm.slnx"
+    "dotnet.defaultSolution": "ChopEm.slnx",
+    "builder.serverUrl": "http://localhost:5500/",
+    "builder.command": "cd DOAN\\EVERSHOP\\FullBase\\evershop-dev && npm run start",
+    "builder.runDevServer": false,
+    "builder.autoDetectDevServer": true,
+    "builder.launchType": "editor"
 }

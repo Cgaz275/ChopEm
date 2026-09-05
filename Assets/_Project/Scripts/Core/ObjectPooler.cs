@@ -97,7 +97,7 @@ using UnityEngine;
 
             GameObject objectToSpawn = objectPool.Dequeue();
 
-            // Nếu truyền Parent vào (rất hữu ích cho UI FX)
+            // Nếu truyền Parent 
             if (parent != null)
             {
                 objectToSpawn.transform.SetParent(parent, false);
